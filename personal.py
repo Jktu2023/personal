@@ -9,57 +9,67 @@
 # 3.Инкапсуляция данных: Убедись, что атрибуты классов защищены от прямого доступа и модификации снаружи. Предоставь доступ
 # к необходимым атрибутам через методы (например, get и set методы).
 class User:
-    def __init__(self, name, ID, level):
+    def __init__(self, name, ID,):
         self._name_protect = name
         self._ID_protect = ID
-        self._level_protect = level
+        self._level_protect = 'user'
 
-    def get_level_privat(self):
-        return self._level_protect
+    def get_name_protect(self): # геттер
+        return self._name_protect
 
-    def set_level_privat(self, level):
-        self._level_protect = level
-    def set_level_protect(self, ID):
+    def get_ID_protect(self): # геттер
+        return self._ID_protect
+
+    def set_name_protect(self, name): # сеттер
+        self._name_protect = name
+
+    def set_ID_protect(self, ID): # сеттер
         self._ID_protect = ID
     def info(self, ):
         print(f'Имя: {self._name_protect}, ID: {self._ID_protect}, уровень: {self._level_protect}')
 
 class Admin(User):
-    def __init__(self, name, ID, level,  level_A):
-        super().__init__(name, ID, level)
-        self.__level_A_privat = level_A
-
-    def _del_person_privat(self, lst, user):
+    def __init__(self, name, ID,):
+        super().__init__(name, ID)
+        self._level_protect = 'admin'
+    def _remove_user(self, lst, user):
         lst.remove(user)
+    def _add_user(self, lst, user):
+        lst.append(user)
+        print(f'Добавлен пользователь: {user}')
     def info(self, ):
-        print(f'Имя: {self._name_protect}, ID: {self._ID_protect}, уровень: {self.__level_A_privat}')
+        print(f'Имя: {self._name_protect}, ID: {self._ID_protect}, уровень: {self._level_protect}')
 
+# создаем обьекты пользователей
+user1 = User('Иван', 11223, )
+user2 = User('Cергей', 11224, )
+user3 = User('Дмитрий', 11225, )
+user4 = User('Олег', 11226, )
+user5 = User('Алексей', 11227, )
 
-user1 = User('Иван', 11223, 'user')
-user2 = User('Cергей', 11224, 'user')
-user3 = User('Дмитрий', 11225, 'user')
-user4 = User('Олег', 11226, 'user')
-user5 = User('Алексей', 11227, 'user')
+# создаем обьект админа
+admin1 = Admin('Стас', 10000,)
 
-admin1 = Admin('Стас', 10000, 'user','admin')
-
-lst = []
+lst = [] # заполняем предварительно список пользователей
 for i in range(5):
     nik = 'user' + str(i+1)
     lst.append(nik)
-
 print(f'список пользователей: {lst}')
 
 user1.info()
 user1.ID = 15555
 user1.name = 'Рита'
+user1.set_name_protect('Виктор')
 user1.info()
-user1.set_level_protect(20000)
+
 user1.info()
 
 print()
 
 admin1.info()
-admin1._del_person_privat(lst, 'user1')
+admin1._remove_user(lst, 'user1')
 # _Admin__del_person_privat(lst, user1)
+print(f'список пользователей: {lst}')
+
+admin1._add_user( lst, 'user6'  )
 print(f'список пользователей: {lst}')
