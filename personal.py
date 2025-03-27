@@ -62,8 +62,6 @@ user1.name = 'Рита'
 user1.set_name_protect('Виктор')
 user1.info()
 
-user1.info()
-
 print()
 
 admin1.info()
